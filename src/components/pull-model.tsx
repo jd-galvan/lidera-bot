@@ -29,10 +29,10 @@ export default function PullModel() {
           <p>Pull model</p>
         </div>
       </DialogTrigger>
-      <DialogContent className="space-y-2">
+      {/* <DialogContent className="space-y-2">
       <DialogTitle>Pull Model</DialogTitle>
           <PullModelForm />
-      </DialogContent>
+      </DialogContent> */}
     </Dialog>
   );
 }

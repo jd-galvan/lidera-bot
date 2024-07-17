@@ -79,20 +79,20 @@ export default function PullModelForm() {
           }
           // Create a new ReadableStream from the response body
           const reader = response.body.getReader();
-  
+
           // Read the data in chunks
           reader.read().then(function processText({ done, value }) {
             if (done) {
               setIsDownloading(false);
               return;
             }
-  
+
             // Convert the chunk of data to a string
             const text = new TextDecoder().decode(value);
-  
+
             // Split the text into individual JSON objects
             const jsonObjects = text.trim().split("\n");
-  
+
             jsonObjects.forEach((jsonObject) => {
               try {
                 const responseJson = JSON.parse(jsonObject);
@@ -113,7 +113,7 @@ export default function PullModelForm() {
                 return;
               }
             });
-  
+
             // Continue reading the next chunk
             reader.read().then(processText);
           });
@@ -163,7 +163,7 @@ export default function PullModelForm() {
             </FormItem>
           )}
         />
-        <div className="space-y-2 w-full">
+        {/* <div className="space-y-2 w-full">
           <Button type="submit" className="w-full " disabled={isDownloading}>
             {isDownloading ? (
               <div className="flex items-center gap-2">
@@ -179,7 +179,7 @@ export default function PullModelForm() {
               ? "This may take a while. You can safely close this modal and continue using the app"
               : "Pressing the button will download the specified model to your device."}
           </p>
-        </div>
+        </div> */}
       </form>
     </Form>
   );

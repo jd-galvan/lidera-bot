@@ -1,6 +1,6 @@
 import { StreamingTextResponse, Message } from "ai";
 import { ChatOllama } from "@langchain/community/chat_models/ollama";
-import { AIMessage, HumanMessage } from "@langchain/core/messages";
+import { AIMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { BytesOutputParser } from "@langchain/core/output_parsers";
 
 export const runtime = "edge";
@@ -18,12 +18,14 @@ export async function POST(req: Request) {
 
   const stream = await model
     .pipe(parser)
-    .stream(
-      (messages as Message[]).map((m) =>
+    .stream([
+      new SystemMessage("Eres un asistente que debe responder en español. Tus respuestas deben ser precisas y breves."),
+      ...(messages as Message[]).map((m) =>
         m.role == "user"
           ? new HumanMessage(m.content)
           : new AIMessage(m.content)
       )
+    ]
     );
 
 
