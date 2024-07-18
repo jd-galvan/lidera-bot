@@ -1,5 +1,26 @@
 /** @type {import('next').NextConfig} */
+import { createProxyMiddleware } from 'http-proxy-middleware'
+
 const nextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: '/api/tags',
+        destination: 'http://110.238.69.52:11434/api/chat',
+      },
+    ];
+  },
+  async serverMiddleware() {
+    const proxy = createProxyMiddleware('/api/chat', {
+      target: 'http://110.238.69.52:11434',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/api/chat': '/api/chat',
+      },
+    });
+
+    return proxy;
+  },
   output: 'standalone',
   webpack: (config, { isServer }) => {
     // Fixes npm packages that depend on `fs` module
@@ -23,3 +44,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
 };
+
+
+
+export default nextConfig;
