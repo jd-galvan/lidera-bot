@@ -6,16 +6,16 @@ const nextConfig = {
     return [
       {
         source: '/api/tags',
-        destination: 'http://110.238.69.52:11434/api/chat',
+        destination: 'http://110.238.69.52:11434/api/tags',
       },
     ];
   },
   async serverMiddleware() {
-    const proxy = createProxyMiddleware('/api/chat', {
+    const proxy = createProxyMiddleware('/api/tags', {
       target: 'http://110.238.69.52:11434',
       changeOrigin: true,
       pathRewrite: {
-        '^/api/chat': '/api/chat',
+        '^/api/tags': '/api/tags',
       },
     });
 
