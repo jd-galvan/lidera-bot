@@ -72,13 +72,13 @@ export default function Home() {
   }, [chatId, isLoading, error]);
 
   useEffect(() => {
-    if (env === "production") {
-      const newOllama = new ChatOllama({
-        baseUrl: process.env.NEXT_PUBLIC_OLLAMA_URL || "http://localhost:11434",
-        model: selectedModel,
-      });
-      setOllama(newOllama);
-    }
+    // if (env === "production") {
+    //   const newOllama = new ChatOllama({
+    //     baseUrl: process.env.NEXT_PUBLIC_OLLAMA_URL || "http://localhost:11434",
+    //     model: selectedModel,
+    //   });
+    //   setOllama(newOllama);
+    // }
 
     if (!localStorage.getItem("ollama_user")) {
       setOpen(true);
@@ -154,15 +154,15 @@ export default function Home() {
       },
     };
 
-    if (env === "production") {
-      handleSubmitProduction(e);
-    } else {
-      // Call the handleSubmit function with the options
-      handleSubmit(e, requestOptions);
-    }
+    // if (env === "production") {
+    //   handleSubmitProduction(e);
+    // } else {
+    // Call the handleSubmit function with the options
+    handleSubmit(e, requestOptions);
+    // }
   };
 
-  const onOpenChange = (isOpen: boolean) => { 
+  const onOpenChange = (isOpen: boolean) => {
     const username = localStorage.getItem("ollama_user")
     if (username) return setOpen(isOpen)
 
@@ -170,7 +170,7 @@ export default function Home() {
     window.dispatchEvent(new Event("storage"))
     setOpen(isOpen)
   }
-  
+
   return (
     <main className="flex h-[calc(100dvh)] flex-col items-center ">
       <Dialog open={open} onOpenChange={onOpenChange}>
