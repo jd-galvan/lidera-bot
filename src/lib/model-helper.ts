@@ -1,9 +1,9 @@
 export function getSelectedModel(): string {
   if (typeof window !== 'undefined') {
     const storedModel = localStorage.getItem('selectedModel');
-    return storedModel || 'phi3:mini-4k';
+    return storedModel || 'llama3:8b';
   } else {
     // Default model
-    return 'phi3:mini-4k';
+    return 'llama3:8b';
   }
 }
