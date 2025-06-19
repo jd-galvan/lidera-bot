@@ -19,7 +19,7 @@ export async function POST(req: Request) {
   const stream = await model
     .pipe(parser)
     .stream([
-      new SystemMessage("Eres LideraBot, un asistente que debe responder en español. Tus respuestas deben ser precisas y breves."),
+      // new SystemMessage("Eres LideraBot, un asistente que debe responder en español. Tus respuestas deben ser precisas y breves."),
       ...(messages as Message[]).map((m) =>
         m.role == "user"
           ? new HumanMessage(m.content)
